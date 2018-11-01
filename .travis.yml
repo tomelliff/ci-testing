@@ -1,0 +1,7 @@
+language: shell
+sudo: false
+services:
+  - postgres
+script:
+  - postgres -V
+  - psql -U postgres -d postgres -c 'SELECT version();'
