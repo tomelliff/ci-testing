@@ -1,7 +1,17 @@
 language: shell
+
 sudo: required
+
 services:
   - docker
+
+jobs:
+  include:
+    - stage: lint
+      script:
+        - echo "this is where lint 1 would run"
+        - echo "lint 2 should run after lint 1"
+
 env:
   global:
     - PGHOST=localhost
@@ -17,5 +27,6 @@ env:
 before_install:
   - docker run -d -p 6666:5432 postgres:${POSTGRES_VERSION}
   - sleep 5 # naively wait for postgres container to start properly
+
 script:
   - psql -h ${PGHOST} -p ${PGPORT} -U postgres -d postgres -c 'SELECT version();'
