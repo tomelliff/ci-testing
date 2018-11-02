@@ -4,5 +4,6 @@ services:
   - docker
 before_install:
   - docker run -d -p 6666:5432 postgres
+  - sleep 5 # naively wait for postgres container to start properly
 script:
   - psql -h localhost -p 6666 -U postgres -d postgres -c 'SELECT version();'
